@@ -1,10 +1,6 @@
 import {counterReducer} from "./counter-reducer";
-import {combineReducers, createStore} from "redux";
+import {legacy_createStore} from "@reduxjs/toolkit";
 
-const rootReducer = combineReducers({
-        counter: counterReducer
-    })
+export const store = legacy_createStore(counterReducer)
 
-export type AppRootType = ReturnType<typeof rootReducer>
-
-export const store = createStore(rootReducer)
+export type AppRootType = ReturnType<typeof store.getState>
