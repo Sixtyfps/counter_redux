@@ -13,6 +13,9 @@ function App() {
     const showCounterValue = useSelector<AppRootType, boolean>(state => state.showCounterValue)
     const showProposalMessage = useSelector<AppRootType, boolean>(state => state.showProposalMessage)
     const showErrorMessage = useSelector<AppRootType, boolean>(state => state.showErrorMessage)
+    const maxValue = useSelector<AppRootType, number>(state => state.maxValue)
+    const minValue = useSelector<AppRootType, number>(state => state.minValue)
+
 
     const inc = () => {
         dispatch(incAC())
@@ -33,7 +36,6 @@ function App() {
        dispatch(setMinAC(+e.currentTarget.value))
     }
 
-    console.log(counterNumber)
     return (
 
         <div className="App">
@@ -42,14 +44,14 @@ function App() {
                 {showProposalMessage && <div>Enter and set</div>}
                 {showErrorMessage && <div>Error</div>}
                 <div>
-                    <button onClick={inc} disabled={isIncDisabled}>inc</button>
-                    <button onClick={reset} disabled={isResetDisabled}>reset</button>
+                    <button onClick={inc} disabled={isIncDisabled || counterNumber >= maxValue}>inc</button>
+                    <button onClick={reset} disabled={isResetDisabled || counterNumber <= minValue}>reset</button>
                 </div>
             </div>
 
             <div className={'settings'}>
-                <input type="number" onChange={setMax}/>
-                <input type="number" onChange={setMin}/>
+                <input type="number" onChange={setMax} value={maxValue}/>
+                <input type="number" onChange={setMin} value={minValue}/>
                 <button onClick={set} disabled={isSetDisabled}>set</button>
             </div>
 

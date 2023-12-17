@@ -3,10 +3,10 @@ const initialState = {
     maxValue: 0,
     minValue: 0,
     isIncDisabled: false,
-    isResetDisabled: false,
-    isSetDisabled: false,
-    showCounterValue: true,
-    showProposalMessage: false,
+    isResetDisabled: true,
+    isSetDisabled: true,
+    showCounterValue: false,
+    showProposalMessage: true,
     showErrorMessage: false
 }
 
@@ -19,12 +19,15 @@ export type ActionsTypes = ReturnType<typeof incAC>
 
 
 export type StateType = {
+    //-----VALUES-----
     counterValue: number,
     maxValue: number,
     minValue: number,
+    //------BUTTONS--------
     isIncDisabled: boolean,
     isResetDisabled: boolean,
     isSetDisabled: boolean,
+    //------COUNTER-INFO-DISPLAY------
     showCounterValue: boolean,
     showProposalMessage: boolean,
     showErrorMessage: boolean
@@ -45,33 +48,81 @@ export const counterReducer = (state: StateType = initialState, action: ActionsT
         case 'SET':
             return {
                 ...state,
+                //----VALUES-------
                 counterValue: state.minValue,
+                //-----BUTTONS---------
                 isIncDisabled: false,
                 isResetDisabled: false,
+                isSetDisabled: true,
+                //------COUNTER-INFO-DISPLAY------
                 showCounterValue: true,
                 showErrorMessage:false,
                 showProposalMessage: false
+
             }
         case 'SET-MAX':
-            return {
-                ...state,
-                maxValue: action.value,
-                isIncDisabled: true,
-                isResetDisabled: true,
-                showCounterValue: false,
-                showErrorMessage:false,
-                showProposalMessage: true
+            if (action.value<=0 ||  action.value<=state.minValue || state.minValue<0) {
+                return {
+                    ...state,
+                    //----VALUES-------
+                    maxValue: action.value,
+                    //-----BUTTONS---------
+                    isIncDisabled: true,
+                    isResetDisabled: true,
+                    isSetDisabled:true,
+                    //------COUNTER-INFO-DISPLAY------
+                    showCounterValue: false,
+                    showErrorMessage:true,
+                    showProposalMessage: false,
+                }
+            } else {
+                return {
+                    ...state,
+                    //----VALUES-------
+                    maxValue: action.value,
+                    //-----BUTTONS---------
+                    isIncDisabled: true,
+                    isResetDisabled: true,
+                    isSetDisabled:false,
+                    //------COUNTER-INFO-DISPLAY------
+                    showCounterValue: false,
+                    showErrorMessage:false,
+                    showProposalMessage: true,
+                }
             }
+
+
         case 'SET-MIN':
-            return {
-                ...state,
-                minValue: action.value,
-                isIncDisabled: true,
-                isResetDisabled: true,
-                showCounterValue: false,
-                showErrorMessage:false,
-                showProposalMessage: true
+            if (action.value<0 || action.value>=state.maxValue) {
+                return {
+                    ...state,
+                    //----VALUES-------
+                    minValue: action.value,
+                    //-----BUTTONS---------
+                    isIncDisabled: true,
+                    isResetDisabled: true,
+                    isSetDisabled: true,
+                    //------COUNTER-INFO-DISPLAY------
+                    showCounterValue: false,
+                    showErrorMessage:true,
+                    showProposalMessage: false
+                }
+            } else {
+                return {
+                    ...state,
+                    //----VALUES-------
+                    minValue: action.value,
+                    //-----BUTTONS---------
+                    isIncDisabled: true,
+                    isResetDisabled: true,
+                    isSetDisabled: false,
+                    //------COUNTER-INFO-DISPLAY------
+                    showCounterValue: false,
+                    showErrorMessage:false,
+                    showProposalMessage: true
+                }
             }
+
         default: {
             return state
         }
