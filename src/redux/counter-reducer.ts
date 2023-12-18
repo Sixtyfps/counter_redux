@@ -1,36 +1,29 @@
 const initialState = {
-    counterValue: 0,
+    counterValue: 'set values',
     maxValue: 0,
     minValue: 0,
-    isIncDisabled: false,
+    isIncDisabled: true,
     isResetDisabled: true,
     isSetDisabled: true,
-    showCounterValue: false,
-    showProposalMessage: true,
-    showErrorMessage: false
 }
 
-//--------------------------------------TYPES------------------------------------------
+//-------------------------TYPES------------------------------------------
 export type ActionsTypes = ReturnType<typeof incAC>
     | ReturnType<typeof resetAC>
-    | ReturnType<typeof setMaxAC>
-    | ReturnType<typeof setMinAC>
     | ReturnType<typeof setAC>
+    | ReturnType<typeof errorAC>
+    | ReturnType<typeof proposalAC>
 
 
 export type StateType = {
     //-----VALUES-----
-    counterValue: number,
+    counterValue: number | string,
     maxValue: number,
     minValue: number,
     //------BUTTONS--------
     isIncDisabled: boolean,
     isResetDisabled: boolean,
     isSetDisabled: boolean,
-    //------COUNTER-INFO-DISPLAY------
-    showCounterValue: boolean,
-    showProposalMessage: boolean,
-    showErrorMessage: boolean
 }
 
 export const counterReducer = (state: StateType = initialState, action: ActionsTypes): StateType => {
@@ -38,7 +31,7 @@ export const counterReducer = (state: StateType = initialState, action: ActionsT
         case 'INCREMENT':
             return {
                 ...state,
-                counterValue: state.counterValue + 1
+                counterValue: +state.counterValue + 1
             }
         case 'RESET':
             return {
@@ -49,78 +42,35 @@ export const counterReducer = (state: StateType = initialState, action: ActionsT
             return {
                 ...state,
                 //----VALUES-------
-                counterValue: state.minValue,
+                counterValue: action.minValue,
+                maxValue: action.maxValue,
+                minValue: action.minValue,
                 //-----BUTTONS---------
                 isIncDisabled: false,
                 isResetDisabled: false,
                 isSetDisabled: true,
-                //------COUNTER-INFO-DISPLAY------
-                showCounterValue: true,
-                showErrorMessage:false,
-                showProposalMessage: false
-
-            }
-        case 'SET-MAX':
-            if (action.value<=0 ||  action.value<=state.minValue || state.minValue<0) {
-                return {
-                    ...state,
-                    //----VALUES-------
-                    maxValue: action.value,
-                    //-----BUTTONS---------
-                    isIncDisabled: true,
-                    isResetDisabled: true,
-                    isSetDisabled:true,
-                    //------COUNTER-INFO-DISPLAY------
-                    showCounterValue: false,
-                    showErrorMessage:true,
-                    showProposalMessage: false,
-                }
-            } else {
-                return {
-                    ...state,
-                    //----VALUES-------
-                    maxValue: action.value,
-                    //-----BUTTONS---------
-                    isIncDisabled: true,
-                    isResetDisabled: true,
-                    isSetDisabled:false,
-                    //------COUNTER-INFO-DISPLAY------
-                    showCounterValue: false,
-                    showErrorMessage:false,
-                    showProposalMessage: true,
-                }
             }
 
+        case 'ERROR':
+            return {
+                ...state,
+                //----VALUES-------
+                counterValue: 'Error',
+                //-----BUTTONS---------
+                isSetDisabled: true,
+                isResetDisabled: true,
+                isIncDisabled: true
+            }
 
-        case 'SET-MIN':
-            if (action.value<0 || action.value>=state.maxValue) {
-                return {
-                    ...state,
-                    //----VALUES-------
-                    minValue: action.value,
-                    //-----BUTTONS---------
-                    isIncDisabled: true,
-                    isResetDisabled: true,
-                    isSetDisabled: true,
-                    //------COUNTER-INFO-DISPLAY------
-                    showCounterValue: false,
-                    showErrorMessage:true,
-                    showProposalMessage: false
-                }
-            } else {
-                return {
-                    ...state,
-                    //----VALUES-------
-                    minValue: action.value,
-                    //-----BUTTONS---------
-                    isIncDisabled: true,
-                    isResetDisabled: true,
-                    isSetDisabled: false,
-                    //------COUNTER-INFO-DISPLAY------
-                    showCounterValue: false,
-                    showErrorMessage:false,
-                    showProposalMessage: true
-                }
+        case 'PROPOSAL':
+            return {
+                ...state,
+                //----VALUES-------
+                counterValue: 'set values',
+                //-----BUTTONS---------
+                isSetDisabled: false,
+                isResetDisabled: true,
+                isIncDisabled: true
             }
 
         default: {
@@ -132,12 +82,6 @@ export const counterReducer = (state: StateType = initialState, action: ActionsT
 
 export const incAC = () => ({type: 'INCREMENT'} as const)
 export const resetAC = () => ({type: 'RESET'} as const)
-export const setAC = () => ({type: 'SET'} as const)
-
-export const setMaxAC = (value: number) => {
-    return {type: 'SET-MAX', value} as const
-}
-
-export const setMinAC = (value: number) => {
-    return {type: 'SET-MIN', value} as const
-}
+export const setAC = (maxValue: number, minValue: number) => ({type: 'SET', maxValue, minValue} as const)
+export const errorAC = () => ({type: 'ERROR'} as const)
+export const proposalAC = () => ({type: 'PROPOSAL'} as const)

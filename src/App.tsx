@@ -1,20 +1,21 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import './App.css';
 import {useDispatch, useSelector} from "react-redux";
-import {incAC, resetAC, setAC, setMaxAC, setMinAC} from "./redux/counter-reducer";
+import {errorAC, incAC, proposalAC, resetAC, setAC} from "./redux/counter-reducer";
 import {AppRootType} from "./redux/store";
 
 function App() {
     const dispatch = useDispatch()
-    const counterNumber = useSelector<AppRootType, number>(state => state.counterValue)
+    const counterValue = useSelector<AppRootType, number | string>(state => state.counterValue)
     const isIncDisabled = useSelector<AppRootType, boolean>(state => state.isIncDisabled)
     const isResetDisabled = useSelector<AppRootType, boolean>(state => state.isResetDisabled)
     const isSetDisabled = useSelector<AppRootType, boolean>(state => state.isSetDisabled)
-    const showCounterValue = useSelector<AppRootType, boolean>(state => state.showCounterValue)
-    const showProposalMessage = useSelector<AppRootType, boolean>(state => state.showProposalMessage)
-    const showErrorMessage = useSelector<AppRootType, boolean>(state => state.showErrorMessage)
-    const maxValue = useSelector<AppRootType, number>(state => state.maxValue)
-    const minValue = useSelector<AppRootType, number>(state => state.minValue)
+
+    const maxValueRedux = useSelector<AppRootType, number>(state => state.maxValue)
+    const minValueRedux = useSelector<AppRootType, number>(state => state.minValue)
+
+    const [maxValue, setMaxValue] = useState(0)
+    const [minValue, setMinValue] = useState(0)
 
 
     const inc = () => {
@@ -26,26 +27,40 @@ function App() {
     }
 
     const set = () => {
-        dispatch(setAC())
+        dispatch(setAC(maxValue, minValue))
     }
 
     const setMax = (e:ChangeEvent<HTMLInputElement>) => {
-        dispatch(setMaxAC(+e.currentTarget.value))
+        const value = +e.currentTarget.value
+        if (value<=0 || value<=minValue || minValue<0) {
+            console.log('error max')
+            dispatch(errorAC())
+            setMaxValue(value)
+        } else {
+            dispatch(proposalAC())
+            setMaxValue(value)
+        }
     }
     const setMin = (e:ChangeEvent<HTMLInputElement>) => {
-       dispatch(setMinAC(+e.currentTarget.value))
+        const value = +e.currentTarget.value
+        if (value<0 || value>=maxValue) {
+            console.log('error min')
+            dispatch(errorAC())
+            setMinValue(value)
+        } else {
+            dispatch(proposalAC())
+            setMinValue(value)
+        }
     }
 
     return (
 
         <div className="App">
             <div className={'counter'}>
-                {showCounterValue && <div className={'display'}>{counterNumber}</div>}
-                {showProposalMessage && <div>Enter and set</div>}
-                {showErrorMessage && <div>Error</div>}
+                <div className={'display'}>{counterValue}</div>
                 <div>
-                    <button onClick={inc} disabled={isIncDisabled || counterNumber >= maxValue}>inc</button>
-                    <button onClick={reset} disabled={isResetDisabled || counterNumber <= minValue}>reset</button>
+                    <button onClick={inc} disabled={isIncDisabled || counterValue >= maxValueRedux}>inc</button>
+                    <button onClick={reset} disabled={isResetDisabled || counterValue <= minValueRedux}>reset</button>
                 </div>
             </div>
 
