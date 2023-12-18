@@ -3,6 +3,8 @@ import './App.css';
 import {useDispatch, useSelector} from "react-redux";
 import {errorAC, incAC, proposalAC, resetAC, setAC} from "./redux/counter-reducer";
 import {AppRootType} from "./redux/store";
+import {Input} from "./Input/Input";
+import {Button} from "./Button/Button";
 
 function App() {
     const dispatch = useDispatch()
@@ -59,14 +61,14 @@ function App() {
             <div className={'counter'}>
                 <div className={'display'}>{counterValue}</div>
                 <div>
-                    <button onClick={inc} disabled={isIncDisabled || counterValue >= maxValueRedux}>inc</button>
-                    <button onClick={reset} disabled={isResetDisabled || counterValue <= minValueRedux}>reset</button>
+                    <Button onClick={inc} disabled={isIncDisabled || counterValue >= maxValueRedux} name='inc'/>
+                    <Button onClick={reset} disabled={isResetDisabled || counterValue <= minValueRedux} name='reset'/>
                 </div>
             </div>
 
             <div className={'settings'}>
-                <input type="number" onChange={setMax} value={maxValue}/>
-                <input type="number" onChange={setMin} value={minValue}/>
+                <Input type='number' onChangeCallback={setMax} value={maxValue}/>
+                <Input type='number' onChangeCallback={setMin} value={minValue}/>
                 <button onClick={set} disabled={isSetDisabled}>set</button>
             </div>
 
