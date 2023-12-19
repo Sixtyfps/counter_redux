@@ -8,6 +8,7 @@ test ('state incrementation', () => {
         isIncDisabled: false,
         isResetDisabled: false,
         isSetDisabled: false,
+        isInputError: false
     }
     const endState = counterReducer(startState, incAC())
 
@@ -22,7 +23,7 @@ test ('state reset to zero', () => {
         isIncDisabled: false,
         isResetDisabled: false,
         isSetDisabled: false,
-
+        isInputError: false
     }
     const endState = counterReducer(startState, resetAC())
 

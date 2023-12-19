@@ -5,6 +5,7 @@ const initialState = {
     isIncDisabled: true,
     isResetDisabled: true,
     isSetDisabled: true,
+    isInputError: false
 }
 
 //-------------------------TYPES------------------------------------------
@@ -24,6 +25,8 @@ export type StateType = {
     isIncDisabled: boolean,
     isResetDisabled: boolean,
     isSetDisabled: boolean,
+    //------FOR STYLES------
+    isInputError: boolean
 }
 
 export const counterReducer = (state: StateType = initialState, action: ActionsTypes): StateType => {
@@ -59,7 +62,9 @@ export const counterReducer = (state: StateType = initialState, action: ActionsT
                 //-----BUTTONS---------
                 isSetDisabled: true,
                 isResetDisabled: true,
-                isIncDisabled: true
+                isIncDisabled: true,
+                //----FOR STYLES---
+                isInputError: true
             }
 
         case 'PROPOSAL':
@@ -70,7 +75,9 @@ export const counterReducer = (state: StateType = initialState, action: ActionsT
                 //-----BUTTONS---------
                 isSetDisabled: false,
                 isResetDisabled: true,
-                isIncDisabled: true
+                isIncDisabled: true,
+                //----FOR STYLES---
+                isInputError: false
             }
 
         default: {

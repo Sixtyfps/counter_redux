@@ -7,15 +7,17 @@ import {AppRootType} from "../redux/store";
 export const Settings: React.FC = () => {
     const dispatch = useDispatch()
     const isSetDisabled = useSelector<AppRootType, boolean>(state => state.isSetDisabled)
+    const isInputError = useSelector<AppRootType, boolean>(state => state.isInputError)
+
     const [maxValue, setMaxValue] = useState(0)
     const [minValue, setMinValue] = useState(0)
 
     const set = () => {
         dispatch(setAC(maxValue, minValue))
     }
-    const setMax = (e:ChangeEvent<HTMLInputElement>) => {
+    const setMax = (e: ChangeEvent<HTMLInputElement>) => {
         const value = +e.currentTarget.value
-        if (value<=0 || value<=minValue || minValue<0) {
+        if (value <= 0 || value <= minValue || minValue < 0) {
             console.log('error max')
             dispatch(errorAC())
             setMaxValue(value)
@@ -24,9 +26,9 @@ export const Settings: React.FC = () => {
             setMaxValue(value)
         }
     }
-    const setMin = (e:ChangeEvent<HTMLInputElement>) => {
+    const setMin = (e: ChangeEvent<HTMLInputElement>) => {
         const value = +e.currentTarget.value
-        if (value<0 || value>=maxValue) {
+        if (value < 0 || value >= maxValue) {
             console.log('error min')
             dispatch(errorAC())
             setMinValue(value)
@@ -38,8 +40,16 @@ export const Settings: React.FC = () => {
 
     return (
         <>
-            <Input type='number' onChangeCallback={setMax} value={maxValue}/>
-            <Input type='number' onChangeCallback={setMin} value={minValue}/>
+            <span>Max: </span>
+            <Input type='number'
+                   onChangeCallback={setMax}
+                   value={maxValue}
+                   isInputError={isInputError}/>
+            <span>Min: </span>
+            <Input type='number'
+                   onChangeCallback={setMin}
+                   value={minValue}
+                   isInputError={isInputError}/>
             <button onClick={set} disabled={isSetDisabled}>set</button>
         </>
     );

@@ -3,7 +3,8 @@ import React, {ChangeEvent} from 'react';
 export type InputType = {
     type: string,
     onChangeCallback: (e: ChangeEvent<HTMLInputElement>) => void,
-    value: number
+    value: number,
+    isInputError: boolean
 }
 
 export const Input: React.FC<InputType> = (props) => {
@@ -11,7 +12,8 @@ export const Input: React.FC<InputType> = (props) => {
         <>
             <input type={props.type}
                    onChange={props.onChangeCallback}
-                   value={props.value}/>
+                   value={props.value}
+                   style={props.isInputError? {backgroundColor: '#ffcccc'} : {}}/>
         </>
     );
 };
