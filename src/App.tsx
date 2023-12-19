@@ -6,8 +6,8 @@ import {Settings} from "./Settings/Settings";
 function App() {
     return (
         <div className="App">
-            <Counter/>
-            <Settings/>
+            <Counter />
+            <Settings />
         </div>
     )
 }
