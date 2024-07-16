@@ -1,0 +1,27 @@
+.settings {
+    padding: 5px;
+    width: 230px;
+    height: 146px;
+    border: 2px solid #55cbcc;
+    border-radius: 10px;
+}
+
+.inputsContainer {
+    padding: 5px;
+    height: 90px;
+    border: 2px solid #55cbcc;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.buttonContainer {
+    height: 32px;
+    margin-top: 5px;
+    border: 2px solid #55cbcc;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

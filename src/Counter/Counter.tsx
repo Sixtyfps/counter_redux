@@ -3,6 +3,7 @@ import {Button} from "../Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootType} from "../redux/store";
 import {incAC, resetAC} from "../redux/counter-reducer";
+import s from './Counter.module.css'
 
 export const Counter: React.FC = () => {
     const dispatch = useDispatch()
@@ -24,7 +25,7 @@ export const Counter: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className={s.counter}>
             <div style={counterValue === maxValueRedux || isInputError ? {color: 'red'} : {}}>{counterValue}</div>
             <div>
                 <Button onClick={inc}

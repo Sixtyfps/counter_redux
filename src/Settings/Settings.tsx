@@ -4,6 +4,7 @@ import {errorAC, proposalAC, setAC} from "../redux/counter-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootType} from "../redux/store";
 import {Button} from "./../Button/Button";
+import s from './Settings.module.css'
 
 export const Settings: React.FC = () => {
     const dispatch = useDispatch()
@@ -40,8 +41,8 @@ export const Settings: React.FC = () => {
     }
 
     return (
-        <div>
-            <div>
+        <div className={s.settings}>
+            <div className={s.inputsContainer}>
                 <span>Max: </span>
                 <Input type='number'
                        onChangeCallback={setMax}
@@ -53,7 +54,7 @@ export const Settings: React.FC = () => {
                        value={minValue}
                        isInputError={isInputError}/>
             </div>
-            <div>
+            <div className={s.buttonContainer}>
                 <Button onClick={set} disabled={isSetDisabled} name='set'/>
             </div>
 
