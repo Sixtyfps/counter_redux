@@ -43,16 +43,22 @@ export const Settings: React.FC = () => {
     return (
         <div className={s.settings}>
             <div className={s.inputsContainer}>
-                <span>Max: </span>
-                <Input type='number'
-                       onChangeCallback={setMax}
-                       value={maxValue}
-                       isInputError={isInputError}/>
-                <span>Min: </span>
-                <Input type='number'
-                       onChangeCallback={setMin}
-                       value={minValue}
-                       isInputError={isInputError}/>
+                <div className={s.inputContainer}>
+                    <span>Max: </span>
+                    <Input type='number'
+                           onChangeCallback={setMax}
+                           value={maxValue}
+                           isInputError={isInputError}/>
+                </div>
+
+                <div className={s.inputContainer}>
+                    <span>Min: </span>
+                    <Input type='number'
+                           onChangeCallback={setMin}
+                           value={minValue}
+                           isInputError={isInputError}/>
+                </div>
+
             </div>
             <div className={s.buttonContainer}>
                 <Button onClick={set} disabled={isSetDisabled} name='set'/>

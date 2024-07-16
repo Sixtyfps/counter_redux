@@ -16,6 +16,16 @@
     justify-content: space-around;
 }
 
+.inputContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputsContainer span {
+    font-weight: bold;
+    color: #55cbcc;
+}
+
 .buttonContainer {
     height: 32px;
     margin-top: 5px;

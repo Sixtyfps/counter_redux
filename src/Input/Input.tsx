@@ -1,4 +1,5 @@
 import React, {ChangeEvent} from 'react';
+import s from './Input.module.css'
 
 export type InputType = {
     type: string,
@@ -10,7 +11,8 @@ export type InputType = {
 export const Input: React.FC<InputType> = (props) => {
     return (
         <>
-            <input type={props.type}
+            <input className={s.input}
+                type={props.type}
                    onChange={props.onChangeCallback}
                    value={props.value}
                    style={props.isInputError? {backgroundColor: '#ffcccc'} : {}}/>
