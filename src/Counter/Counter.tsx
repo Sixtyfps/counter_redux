@@ -24,7 +24,7 @@ export const Counter: React.FC = () => {
     }
 
     return (
-        <>
+        <div>
             <div style={counterValue === maxValueRedux || isInputError ? {color: 'red'} : {}}>{counterValue}</div>
             <div>
                 <Button onClick={inc}
@@ -32,6 +32,6 @@ export const Counter: React.FC = () => {
                 <Button onClick={reset}
                         disabled={isResetDisabled || counterValue <= minValueRedux} name='reset'/>
             </div>
-        </>
+        </div>
     );
 };
