@@ -16,6 +16,23 @@
     border: 2px solid #55cbcc;
 }
 
+.displayError {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    border-radius: 7px;
+    border: 2px solid #55cbcc;
+    color: red;
+}
+
+.display span {
+    display: inline-block;
+    font-weight: bold;
+    color: #55cbcc;
+}
+
 .buttonsContainer {
     height: 32px;
     margin-top: 5px;

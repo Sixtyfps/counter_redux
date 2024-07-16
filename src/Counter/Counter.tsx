@@ -26,7 +26,9 @@ export const Counter: React.FC = () => {
 
     return (
         <div className={s.counter}>
-            <div className={s.display} style={counterValue === maxValueRedux || isInputError ? {color: 'red'} : {}}>{counterValue}</div>
+            <div  className={counterValue === maxValueRedux || isInputError ? s.displayError : s.display}>
+                <span>{counterValue}</span>
+            </div>
             <div className={s.buttonsContainer}>
                 <Button onClick={inc}
                         disabled={isIncDisabled || counterValue >= maxValueRedux} name='inc'/>
