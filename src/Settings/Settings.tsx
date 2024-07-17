@@ -44,7 +44,7 @@ export const Settings: React.FC = () => {
         <div className={s.settings}>
             <div className={s.inputsContainer}>
                 <div className={s.inputContainer}>
-                    <span>Max: </span>
+                    <span>Max value: </span>
                     <Input type='number'
                            onChangeCallback={setMax}
                            value={maxValue}
@@ -52,7 +52,7 @@ export const Settings: React.FC = () => {
                 </div>
 
                 <div className={s.inputContainer}>
-                    <span>Min: </span>
+                    <span>Min value: </span>
                     <Input type='number'
                            onChangeCallback={setMin}
                            value={minValue}
